@@ -7,6 +7,9 @@ app.use(express.json());
 const PORT : number = Number(process.env.PORT);
 
 
+app.use(express.static('public'));
+
+
 app.use('/' , router);
 
 

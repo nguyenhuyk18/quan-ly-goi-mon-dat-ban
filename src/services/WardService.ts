@@ -25,7 +25,7 @@ class WardService {
     }
 
     // tìm kiếm tất cả phường xã với điều kiện
-    find = async (id : number) => {
+    find = async (id : string) => {
         const cond : string = ` WHERE id = '${id}'`;
         const tmp : Array<ward> = await this.getAll(cond);
         if (tmp.length == 0) {

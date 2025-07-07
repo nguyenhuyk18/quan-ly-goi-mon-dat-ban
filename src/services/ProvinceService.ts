@@ -23,7 +23,7 @@ class ProvinceService {
         }
     }
 
-    find = async (id : number) => {
+    find = async (id : string) => {
         // console.log(id)
         const cond : string = ` WHERE  id = '${id}'`;
         const tmp : Array<province> = await this.getAll(cond);

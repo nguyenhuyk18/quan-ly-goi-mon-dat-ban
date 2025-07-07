@@ -1,4 +1,7 @@
 const product = require('../../services/ProductService');
+
+
+
 class ProductController {
     static index = async (req, res) => {
         const mProduct = new product();

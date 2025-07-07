@@ -6,9 +6,10 @@ class product {
     image : string = null;
     created_date : string = null;
     id_brand : number = null;
+    type_buffet : string = null;
 
 
-    constructor(id : number = null , product_name : string = null , id_category : number = null , description : string = null , image : string = null , created_date : string = null , id_brand : number = null) {
+    constructor(id : number = null , product_name : string = null , id_category : number = null , description : string = null , image : string = null , created_date : string = null , id_brand : number = null , type_buffet : string = null) {
         this.id = id;
         this.product_name = product_name;
         this.id_category = id_category;

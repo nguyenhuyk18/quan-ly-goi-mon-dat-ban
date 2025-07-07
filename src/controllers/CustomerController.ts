@@ -64,15 +64,16 @@ class CustomerController {
 
         const oldData : customer = await CustomerService.find(data.id);
 
+        // kiểm tra dữ liệu bắt buộc
+        if (!data.id || !data.name || !data.phone || !data.email || !data.ward_id || !data.housenumber_street || !data.shipping_name || !data.shipping_mobile || !data.username) {
+            res.status(400).json({ message: 'Cập nhật khách hàng thất bại vì dữ liệu không hợp lệ !!' });
+            return;
+        }
+
         if (!oldData) {
             res.status(404).json({ message: `Không tìm thấy khách hàng với id ${data.id}` });
             return;
         }
-
-        const password = '111';
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(password, salt);
-        data.password = hash;
 
         // kiểm tra có trùng tên đăng nhập
         // nếu tên đăng nhập mới khác với tên đăng nhập cũ thì mới kiểm tra trùng
@@ -96,9 +97,9 @@ class CustomerController {
         oldData.housenumber_street = data.housenumber_street;
         oldData.shipping_name = data.shipping_name;
         oldData.shipping_mobile = data.shipping_mobile;
-        oldData.password = data.password;
+        // oldData.password = data.password;
         oldData.username = data.username;
-        // oldData.created_date = oldData.created_date; // giữ nguyên ngày tạo
+        
 
         if (!(await CustomerService.update(oldData))) {
             res.status(500).json({ message: `Cập nhật khách hàng ${oldData.name} thất bại !!` });
@@ -110,6 +111,12 @@ class CustomerController {
 
     static store = async (req: Request, res: Response) => {
         const data = req.body;
+
+        // kiểm tra dữ liệu bắt buộc
+        if (!data.name || !data.phone || !data.email || !data.ward_id || !data.housenumber_street || !data.shipping_name || !data.shipping_mobile || !data.username) {
+            res.status(400).json({ message: 'Thêm khách hàng thất bại vì dữ liệu không hợp lệ !!' });
+            return;
+        }
         
         // kiểm tra có trùng tên đăng nhập 
         if (await CustomerService.findByUsername(req.body.username)) {
@@ -153,6 +160,18 @@ class CustomerController {
         return;
     }
 
+    static find = async (req : Request , res : Response) => {
+        const id : number = Number(req.params.id);
+        const tmp : customer = await CustomerService.find(id)
+        if(tmp) {
+            res.status(201).json(tmp);
+            return;
+        }
+        res.status(404).json({message : 'Không tìm thấy khách hàng'});
+    }
+
+    
+
 }
 
-module.exports = CustomerController;
+export default CustomerController

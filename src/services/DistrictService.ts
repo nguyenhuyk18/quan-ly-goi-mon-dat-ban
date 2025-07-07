@@ -27,7 +27,7 @@ class DistrictService {
     }
 
     // tìm kiếm tất cả quận huyện với điều kiện
-    find = async (id : number) => {
+    find = async (id : string) => {
         const cond : string = ` WHERE id = '${id}'`;
         const tmp : Array<district> = await this.getAll(cond);
         if (tmp.length == 0) {

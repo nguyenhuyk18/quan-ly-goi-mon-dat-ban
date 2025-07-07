@@ -15,6 +15,13 @@ class CategoryController {
 
         const oldCategory : category = await CategoryService.find(Number(data.id));
 
+        // kiểm tra dữ liệu bắt buộc
+        if (!data.id || !data.name_category) {
+            res.status(400).json({ message: 'Cập nhật danh mục thất bại vì dữ liệu không hợp lệ !!!' });
+            return;
+        }
+    
+
         if(!oldCategory) {
             res.status(404).json({ message: `Không tìm thấy danh mục với id ${data.id}` });
             return;
@@ -40,6 +47,12 @@ class CategoryController {
     static store = async (req : Request, res : Response) => {
 
         const data = req.body;
+
+        // kiểm tra dữ liệu bắt buộc
+        if (!data.name_category) {
+            res.status(400).json({ message: 'Thêm danh mục thất bại vì dữ liệu không hợp lệ !!!' });
+            return;
+        }
 
         const mcategory = new category(null, data.name_category);
 

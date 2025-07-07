@@ -4,13 +4,18 @@ import RoleService from "../services/RoleService";
 
 class RoleController {
     static index = async (req : Request, res : Response) => {
-        const listRole = await RoleService.getAll();
+        const listRole : role[] = await RoleService.getAll();
         res.status(201).json(listRole)
     }
 
     static edit = async (req : Request, res : Response) => {
         const data : any = req.body;
         const oldData : role = await RoleService.find(Number(data.id));
+
+        if(!data.id || !data.name_role) {
+            res.status(400).json({message : 'Cập nhật vai trò thất bại vì dữ liệu không hợp lệ !!!'});
+            return;
+        }   
 
         if(!oldData) {
             res.status(404).json({message : 'Không tìm thấy vai trò'});
@@ -28,6 +33,10 @@ class RoleController {
         const data : any = req.body;
 
         // console.log(data.name_role);
+        if(!data.name_role) {
+            res.status(400).json({message : 'Thêm role thất bại vì dữ liệu không hợp lệ !!!'});
+            return;
+        }
 
         const tmp = new role(null , data.name_role);
 
