@@ -17,7 +17,7 @@ class product {
         this.image = image;
         this.created_date = created_date;
         this.id_brand = id_brand;
-
+        this.type_buffet = type_buffet
     }
 
     // getId(): number {

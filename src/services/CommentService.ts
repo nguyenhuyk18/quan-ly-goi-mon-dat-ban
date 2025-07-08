@@ -33,10 +33,8 @@ class CommentService {
     }
 
     save = async (data : comment) => {
-        // const { product_id , email, fullname , star ,  } = data;
-
         try {
-            const [result] = await pool.execute("INSERT INTO `comment` (`product_id`, `email`, `fullname`, `star`, `created_date` , `description` ) VALUES (? , ? , ? , ? , ? , ?) ", [data.product_id, data.email, data.fullname, data.star, data.created_date, data.description]) as [ResultSetHeader, any];
+            const [result] = await pool.execute("INSERT INTO `comment` (`product_id`, `email`, `fullname`, `star`, `created_date` , `description` ) VALUES (? , ? , ? , ? , ? , ?)", [data.product_id, data.email, data.fullname, data.star, data.created_date, data.description]) as [ResultSetHeader, any];
             return result.affectedRows > 0;
         } catch (err) {
             console.log(err);
@@ -61,7 +59,7 @@ class CommentService {
         const tmp : Array<comment> = await this.getAll(cond);
         // console.log(tmp);
         if (tmp.length == 0) {
-            return false;
+            return null;
         }
         // const comment = tmp[0];
         return tmp[0];
@@ -79,4 +77,5 @@ class CommentService {
 
 }
 
-module.exports = CommentService;
+
+export default new CommentService();

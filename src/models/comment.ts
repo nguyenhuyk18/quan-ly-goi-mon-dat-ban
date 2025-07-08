@@ -1,4 +1,4 @@
-class Comment {
+class comment {
     id : number = null;
     email : string = null;
     fullname : string = null;
@@ -19,4 +19,4 @@ class Comment {
 
 }
 
-export default Comment;
+export default comment;

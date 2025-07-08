@@ -1,9 +1,15 @@
 import express from "express";
+import bodyParser from "body-parser";
 import 'dotenv/config';
 import router from "./routers/IndexRouters";
 
 const app = express();
 app.use(express.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded());
+
+// parse application/json
+app.use(bodyParser.json());
 const PORT : number = Number(process.env.PORT);
 
 

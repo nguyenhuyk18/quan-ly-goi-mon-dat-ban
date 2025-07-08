@@ -3,6 +3,7 @@
 
 import product from '../models/product';
 import pool from '../database/client';
+import { ResultSetHeader } from 'mysql2';
 
 
 class ProductService {
@@ -48,9 +49,42 @@ class ProductService {
     }
 
 
-    // update = () => {
+    save = async (data : product) => {
+        const sql : string = 'INSERT INTO product (product_name, id_category, description, image , created_date, id_brand, type_buffet) VALUES (? , ? , ? , ? , ? , ? , ?)';
+        try {
+            const [result] = await pool.execute(sql, [data.product_name , data.id_category , data.description , data.image , data.created_date , data.id_brand , data.type_buffet]) as [ResultSetHeader , any];
+            
+            return result.affectedRows > 0;
+        }
+        catch(err) {
+            console.log(err);
+            return false;
+        }
+    }
 
-    // }
+    delete = async (id : number) => {
+        const sql : string = 'DELETE FROM product WHERE id = ?';
+        try {
+            const [result] = await pool.execute(sql, [id]) as [ResultSetHeader , any];
+            return result.affectedRows > 0;
+        }catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+
+    update = async (data : product) => {
+        const sql : string  = 'UPDATE product SET product_name = ? , id_category = ? , description = ?, image = ?, created_date = ?, id_brand = ? , type_buffet = ? WHERE id = ?';
+
+        try {
+            const [result] = await pool.execute(sql , [data.product_name , data.id_category , data.description , data.image , data.created_date , data.id_brand, data.type_buffet , data.id ]) as [ResultSetHeader , any];
+            return result.affectedRows > 0;
+        }
+        catch (err) {
+            return false;
+        }
+    }
 }
 
 export default new ProductService();

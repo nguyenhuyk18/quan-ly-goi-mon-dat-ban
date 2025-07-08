@@ -1,5 +1,7 @@
 import express, { Router } from 'express';
 
+
+// Import Controller
 import ActionController from '../controllers/ActionController';
 import RoleController from '../controllers/RoleController';
 import BrandController from '../controllers/BrandController';
@@ -9,10 +11,15 @@ import StaffController from '../controllers/StaffController';
 import WardController from '../controllers/WardController';
 import DistrictController from '../controllers/DistrictController';
 import ProvinceController from '../controllers/ProvinceController';
+import ProductController from '../controllers/ProductController';
+import CommentController from '../controllers/CommentController';
 
+
+// Import Middlewares
 import {UploadAvatarStaff , checkIDStaff}  from '../middlewares/UploadAvartar';
+import { UploadImageProduct } from '../middlewares/UploadProduct';
 
-
+// Set up router
 const router : Router = express.Router();
 
 // action
@@ -58,7 +65,23 @@ router.post('/api/v1/admin/staff' , StaffController.store);
 router.put('/api/v1/admin/staff' , StaffController.update);
 router.delete('/api/v1/admin/staff/:id' , StaffController.delete);
 router.get('/api/v1/admin/avatar-staff/:id' , StaffController.getImageStaff);
-router.post('/api/v1/admin/avatar-staff/:id' , checkIDStaff , UploadAvatarStaff.single('avatarstaff') , StaffController.uploadImageStaff)
+router.post('/api/v1/admin/avatar-staff/:id' , checkIDStaff , UploadAvatarStaff.single('avatarstaff') , StaffController.uploadImageStaff);
+
+// product 
+router.get('/api/v1/admin/product' , ProductController.index);
+router.get('/api/v1/admin/product/:id' ,ProductController.find);
+router.post('/api/v1/admin/product' , UploadImageProduct.single('imageproduct') , ProductController.store);
+router.put('/api/v1/admin/product' , UploadImageProduct.single('imageproduct') , ProductController.update);
+router.delete('/api/v1/admin/product/:id'  , ProductController.delete);
+router.get('/api/v1/admin/image-product/:id' , ProductController.returnImageProduct);
+
+// comment
+router.get('/api/v1/admin/comment' , CommentController.index);
+router.get('/api/v1/admin/comment/:id' , CommentController.find);
+router.post('/api/v1/admin/comment' , CommentController.save);
+router.put('/api/v1/admin/comment' , CommentController.update);
+router.delete('/api/v1/admin/comment/:id' , CommentController.delete);
+router.get('/api/v1/admin/comment-product/:id_product' , CommentController.findByProductID); 
 
 // ward 
 router.get('/api/v1/admin/ward' , WardController.getAll);
@@ -74,5 +97,9 @@ router.get('/api/v1/admin/district-by-province/:id_province' , DistrictControlle
 // province 
 router.get('/api/v1/admin/province' , ProvinceController.getAll);
 router.get('/api/v1/admin/province/:id' , ProvinceController.find);
+
+
+// floor 
+
 
 export default router;
