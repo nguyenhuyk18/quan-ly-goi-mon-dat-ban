@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express, { Request, Response, Router } from 'express';
 
 
 // Import Controller
@@ -27,6 +27,10 @@ import checkPermission from '../middlewares/CheckPermission';
 
 // Set up router
 const router : Router = express.Router();
+
+router.get('/' , (req : Request , res : Response) => {
+    res.send('XIN CHÀO BẠN ĐẾN VỚI API CỦA TÔI , ĐỪNG HACK NÓ NHÉ VÌ HỆ THỐNG BẢO MẬT NÓ RẤT MẠNH HEHEHEHEHE , COPYRIGHT BY NGUYỄN ĐỨC HUY @2025 !!')
+})
 
 // action
 router.get('/api/v1/admin/action' , checkPermission('view_action') , ActionController.index);
