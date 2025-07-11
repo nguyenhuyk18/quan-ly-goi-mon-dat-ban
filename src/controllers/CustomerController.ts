@@ -65,7 +65,7 @@ class CustomerController {
         const oldData : customer = await CustomerService.find(data.id);
 
         // kiểm tra dữ liệu bắt buộc
-        if (!data.id || !data.name || !data.phone || !data.email || !data.ward_id || !data.housenumber_street || !data.shipping_name || !data.shipping_mobile || !data.username) {
+        if (!data?.id || !data?.name || !data?.phone || !data?.email || !data?.ward_id || !data?.housenumber_street || !data?.shipping_name || !data?.shipping_mobile || !data?.username) {
             res.status(400).json({ message: 'Cập nhật khách hàng thất bại vì dữ liệu không hợp lệ !!' });
             return;
         }
@@ -113,7 +113,7 @@ class CustomerController {
         const data = req.body;
 
         // kiểm tra dữ liệu bắt buộc
-        if (!data.name || !data.phone || !data.email || !data.ward_id || !data.housenumber_street || !data.shipping_name || !data.shipping_mobile || !data.username) {
+        if (!data?.name || !data?.phone || !data?.email || !data?.ward_id || !data?.housenumber_street || !data?.shipping_name || !data?.shipping_mobile || !data?.username) {
             res.status(400).json({ message: 'Thêm khách hàng thất bại vì dữ liệu không hợp lệ !!' });
             return;
         }

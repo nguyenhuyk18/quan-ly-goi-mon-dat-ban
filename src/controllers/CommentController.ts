@@ -31,7 +31,7 @@ class CommentController {
     static save = async (req : Request, res : Response) => {
         const data = req.body;
 
-        if (!data.email || !data.fullname || !data.star || !data.description || !data.product_id) {
+        if (!data?.email || !data?.fullname || !data?.star || !data?.description || !data?.product_id) {
             res.status(400).json({ message: `Dữ liệu không hợp lệ !!!` });
             return;
         }
@@ -74,7 +74,7 @@ class CommentController {
         const data = req.body;
 
         // kiểm tra dữ liệu
-        if (!data.id || !data.email || !data.fullname || !data.star || !data.description) {
+        if (!data?.id || !data?.email || !data?.fullname || !data?.star || !data?.description) {
             res.status(400).json({ message: `Dữ liệu không hợp lệ !!!` });
             return;
         }

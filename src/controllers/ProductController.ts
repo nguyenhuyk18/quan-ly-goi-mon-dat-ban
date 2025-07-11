@@ -77,7 +77,7 @@ class ProductController {
         data.image = req.file ?  req.file.filename :  'do-an-nhanh-cho-nguoi-ban-ron.jpg'
 
 
-        if(!data.product_name || !data.id_category || !data.description  || !data.id_brand || !data.type_buffet) {
+        if(!data?.product_name || !data?.id_category || !data?.description  || !data?.id_brand || !data?.type_buffet) {
             res.status(400).json({message : 'Thêm sản phẩm thất bại vì dữ liệu không hợp lệ !!!'});
             return;
         }

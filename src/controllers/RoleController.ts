@@ -12,7 +12,7 @@ class RoleController {
         const data : any = req.body;
         const oldData : role = await RoleService.find(Number(data.id));
 
-        if(!data.id || !data.name_role) {
+        if(!data?.id || !data?.name_role) {
             res.status(400).json({message : 'Cập nhật vai trò thất bại vì dữ liệu không hợp lệ !!!'});
             return;
         }   
@@ -33,7 +33,7 @@ class RoleController {
         const data : any = req.body;
 
         // console.log(data.name_role);
-        if(!data.name_role) {
+        if(!data?.name_role) {
             res.status(400).json({message : 'Thêm role thất bại vì dữ liệu không hợp lệ !!!'});
             return;
         }

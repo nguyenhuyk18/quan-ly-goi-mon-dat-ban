@@ -4,7 +4,7 @@ import { ResultSetHeader } from "mysql2";
 
 class TableService {
     getAll = async (cond : string = null) => {
-        let sql : string = "SELECT * FROM table";
+        let sql : string = "SELECT * FROM \`table\`";
         if(cond) {
             sql += ` WHERE ${cond}`;
         }
@@ -40,7 +40,7 @@ class TableService {
 
     save = async (data : table) => {
         try {
-            const sql = `INSERT INTO table (name_table, capacity, floor_id, status) VALUES (?, ?, ?, ?)`;
+            const sql = `INSERT INTO \`table\` (name_table, capacity, floor_id, status) VALUES (?, ?, ?, ?)`;
             const [result] = await pool.execute(sql, [data.name_table, data.capacity, data.floor_id, data.status]) as [ResultSetHeader , any];
             return result.affectedRows > 0;
         } catch (error) {
@@ -51,7 +51,7 @@ class TableService {
 
     update = async (data : table) => {
         try {
-            const sql = `UPDATE table SET name_table = ?, capacity = ?, floor_id = ?, status = ? WHERE id = ?`;
+            const sql = `UPDATE \`table\` SET name_table = ?, capacity = ?, floor_id = ?, status = ? WHERE id = ?`;
             const [result] = await pool.execute(sql, [data.name_table, data.capacity, data.floor_id, data.status, data.id]) as [ResultSetHeader , any];
             return result.affectedRows > 0;
         } catch (error) {
@@ -62,7 +62,7 @@ class TableService {
 
     delete = async (id : number) => {
         try {
-            const sql = `DELETE FROM table WHERE id = ?`;
+            const sql = `DELETE FROM \`table\` WHERE id = ?`;
             const [result] = await pool.execute(sql, [id]) as [ResultSetHeader , any];
             return result.affectedRows > 0;
         } catch (error) {

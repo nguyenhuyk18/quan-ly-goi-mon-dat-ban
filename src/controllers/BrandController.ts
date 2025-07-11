@@ -16,7 +16,7 @@ class BrandController {
         const oldData : brand = await BrandServices.find(data.id);
 
         // kiểm tra dữ liệu bắt buộc
-        if (!data.id || !data.name_brand) {
+        if (!data?.id || !data?.name_brand) {
             res.status(400).json({message: 'Cập nhật thương hiệu thất bại vì dữ liệu không hợp lệ !!!'});
             return;
         }
@@ -43,7 +43,7 @@ class BrandController {
         const data = req.body;
         const tmp : brand = new brand(null, data.name_brand);
         // kiểm tra dữ liệu bắt buộc
-        if (!data.name_brand) {
+        if (!data?.name_brand) {
             res.status(400).json({message: 'Thêm thương hiệu thất bại vì dữ liệu không hợp lệ !!!'});
             return;
         }

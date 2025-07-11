@@ -16,7 +16,7 @@ class CategoryController {
         const oldCategory : category = await CategoryService.find(Number(data.id));
 
         // kiểm tra dữ liệu bắt buộc
-        if (!data.id || !data.name_category) {
+        if (!data?.id || !data?.name_category) {
             res.status(400).json({ message: 'Cập nhật danh mục thất bại vì dữ liệu không hợp lệ !!!' });
             return;
         }
@@ -49,7 +49,7 @@ class CategoryController {
         const data = req.body;
 
         // kiểm tra dữ liệu bắt buộc
-        if (!data.name_category) {
+        if (!data?.name_category) {
             res.status(400).json({ message: 'Thêm danh mục thất bại vì dữ liệu không hợp lệ !!!' });
             return;
         }

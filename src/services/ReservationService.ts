@@ -68,4 +68,4 @@ class ReservationService {
     
 }
 
-export default ReservationService
+export default new ReservationService()

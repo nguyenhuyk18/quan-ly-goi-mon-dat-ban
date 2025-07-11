@@ -15,6 +15,12 @@ class StaffController {
     static store = async (req : Request, res : Response) => {
         const data : any = req.body;
 
+        // kiểm tra dữ liệu bắt buộc
+        if(!data?.role_id || !data?.name || !data?.mobile || !data?.username || !data?.email) {
+            res.status(400).json({message : 'Thêm nhân viên thất bại vì dữ liệu không hợp lệ !!!'});
+            return;
+        }
+
         if(typeof data.password == 'undefined') {
             data.password = '111';
         }
@@ -23,12 +29,6 @@ class StaffController {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(data.password, salt);
         data.password = hash;
-
-        // kiểm tra dữ liệu bắt buộc
-        if(!data.role_id || !data.name || !data.mobile || !data.username || !data.email) {
-            res.status(400).json({message : 'Thêm nhân viên thất bại vì dữ liệu không hợp lệ !!!'});
-            return;
-        }
 
         // Kiểm tra username
         const check = await StaffService.findByUsername(data.username);
@@ -77,7 +77,7 @@ class StaffController {
         data.password = hash;
 
 
-        if(!data.id || !data.role_id || !data.name || !data.mobile || !data.username || !data.email) {
+        if(!data?.id || !data?.role_id || !data?.name || !data?.mobile || !data?.username || !data?.email) {
             res.status(400).json({message : 'Cập nhật nhân viên thất bại vì dữ liệu không hợp lệ !!!'});
             return;
         }
